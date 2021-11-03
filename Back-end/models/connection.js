@@ -13,7 +13,7 @@ const connection = async () =>
   db
     ? Promise.resolve(db)
     : MongoClient.connect(MONGO_DB_URL, OPTION).then((conn) => {
-        db = conn.db('tecRank');
-        return db;
+      db = conn.db('ebytr');
+      return db;
       });
 module.exports = connection;
