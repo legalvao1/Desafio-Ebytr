@@ -109,7 +109,7 @@ describe('Cadastra um novo todo no banco', () => {
 
       expect(response).to.be.a('object');
     });
-    it('tal objeto possui o "id" da nova tarefa', async () => {
+    it('tal objeto possui o "taskId" da nova tarefa', async () => {
       const response = await todosModel.addTodo(payload_todo);
 
       expect(response).to.have.a.property('taskId');
@@ -143,34 +143,70 @@ describe('Edita uma tarefa no banco', () => {
       status: "pendente"
     };
     
-    before(async () => {
-      const db = await mongoConnection.connection();
-      await db.collection('todos').insertOne({ ...payload_todo });
-    });
-
-    after(async () => {
-        const db = await mongoConnection.connection();
-        await db.collection('todos').drop();
-    });
     const example_id = { id: 455 };
 
     const edited_payload = {
       id: 455,
-      text: "correr",
+      text: "pular",
       createdAt: "11/4/2021, 4:30:37 PM",
       updatedAt: "11/4/2021, 5:54:40 PM",
-      status: "pendente"
+      status: "pronto"
     };
 
     it('retorna um objeto', async () => {
+      await todosModel.addTodo(payload_todo);
       const response = await todosModel.editTodo(example_id, edited_payload);
 
       expect(response).to.be.a('object');
     });
-    it('tal objeto possui o "id" do novo filme inserido', async () => {
+    it('tal objeto editado possui a chave matchedCount com o valor 1', async () => {
       const response = await todosModel.editTodo(example_id, edited_payload);
 
       expect(response.matchedCount).to.equals(1);
+    });
+  });
+});
+
+describe('Deleta uma tarefa do banco', () => {
+
+  const DBServer = new MongoMemoryServer();
+
+  before(async () => {
+    const URLMock = await DBServer.getUri();
+    const connectionMock = await MongoClient
+      .connect(URLMock, { useNewUrlParser: true, useUnifiedTopology: true })
+      .then((connection) => connection.db('banco_teste'));
+
+    sinon.stub(mongoConnection, 'connection').resolves(connectionMock);
+  });
+
+  after(async () => {
+    mongoConnection.connection.restore();
+    await DBServer.stop();
+  });
+
+  describe('quando é deletada com sucesso', () => {
+    const payload_todo = {
+      id: 455,
+      text: "correr",
+      createdAt: "11/4/2021, 4:30:37 PM",
+      status: "pendente"
+    };
+    
+    const example_id = { id: 455 };
+
+    it('retorna um objeto', async () => {
+      await todosModel.addTodo(payload_todo);
+      const response = await todosModel.deleteTodo(example_id);
+
+      expect(response).to.be.a('object');
+    });
+
+    it('tal objeto possui o "id" do novo filme inserido', async () => {
+      await todosModel.addTodo(payload_todo);
+      const response = await todosModel.deleteTodo(example_id);
+
+      expect(response.deletedCount).to.equals(1);
     });
   });
 });
