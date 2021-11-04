@@ -15,7 +15,16 @@ const TodoForm = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    
+   
+    props.edit ? 
+
+    props.onSubmit({
+      id: props.edit.id,
+      text: input,
+      createdAt: props.edit.createdAt,
+      updateAt: new Date().toLocaleString('en-US'),
+    })
+    :
     props.onSubmit({
       id: Math.floor(Math.random() * 10000),
       text: input,

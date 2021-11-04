@@ -1,40 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { getTodos, addTodo, editTodo, deleteTodo } from "../services/todosService";
 import Todo from "./Todo";
 import TodoForm from "./TodoForm";
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
 
-  const addTodo = (todo) => {
+  useEffect(() => {
+    async function fetchApi() {
+      const { data } = await getTodos();
+      setTodos(data);
+    }  
+  fetchApi();
+  }, []);
+
+  const addTask = async (todo) => {
     if (todo.text === '' || /^\s*$/.test(todo.text)) {
       return;
     };
     const newTodos = [todo, ...todos];
     setTodos(newTodos);
+    await addTodo(todo);
   };
 
-  const editTodo = (id, editTodo) => {
-    if (editTodo.text === '' || /^\s*$/.test(editTodo.text)) {
+  const editTask = async (id, newValue) => {
+    if (newValue.text === '' || /^\s*$/.test(newValue.text)) {
       return;
     };
-    const newTodos = todos.map((todo) => todo.id === id ? editTodo : todo);
+    const newTodos = todos.map((todo) => todo.id === id ? newValue : todo);
     setTodos(newTodos);
+    await editTodo(id, newValue);
   }
 
-  const deleteTodo = (id) => {
+  const deleteTask = async (id) => {
     const newTodos = todos.filter((todo) => todo.id !== id)
     setTodos(newTodos);
+    await deleteTodo(id);
   };
 
 
   return (
     <div>
       <h2>Adicionar tarefas</h2>
-      <TodoForm onSubmit={ addTodo }/>
+      <TodoForm onSubmit={ addTask }/>
       <Todo 
       todos={todos} 
-      deleteTodo={deleteTodo}
-      editTodo={editTodo}
+      deleteTodo={deleteTask}
+      editTodo={editTask}
       />
     </div>
   );

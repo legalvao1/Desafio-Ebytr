@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiUrl = 'http://localhost:3000';
+const apiUrl = 'http://localhost:3001';
 
 export const getTodos = () => {
   return axios.get(apiUrl);
@@ -15,6 +15,6 @@ export const editTodo = (id, task) => {
 };
 
 export const deleteTodo = (id) => {
-  return axios.put(`${apiUrl}/${id}`)
+  return axios.delete(`${apiUrl}/${id}`)
 };
 
