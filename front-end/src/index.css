@@ -20,7 +20,7 @@ body {
   justify-content: start;
   width: 520px;
   min-height: 600px;
-  background: #161a2b;
+  background: #1135d6;
   text-align: center;
   margin: 128px auto;
   border-radius: 10px;
@@ -92,7 +92,7 @@ h1 {
 
 .todo-row {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   margin: 4px auto;
   color: #fff;
@@ -145,4 +145,16 @@ h1 {
 
 .edit-icon {
   color: #fff;
+}
+
+.status {
+  font-size: 13px;
+  padding: 1px 5px;
+  border-radius: 20px;
+  background: linear-gradient(
+    90deg,
+    rgb(112, 95, 19) 0%,
+    rgb(109, 26, 5) 100%
+  );
+  min-width: 20%
 }

@@ -20,8 +20,13 @@ const Todo = ({ todos, deleteTodo, editTodo, setShowFilter }) => {
 
   setShowFilter(true);
   return todos.map((todo) => (
-    <div key={todo.id}>
-      <div className="todo-row" key={todo.id}>{todo.text}<span>{todo.status}</span></div>
+    <div className="todo-row" key={todo.id}>
+      <div key={todo.id}>
+        {todo.text}
+        <div className="status-div">
+          <span className="status">{todo.status}</span>
+        </div>
+      </div>
       <div className='icons'>
         <RiCloseCircleLine
           onClick={() => deleteTodo(todo.id)}

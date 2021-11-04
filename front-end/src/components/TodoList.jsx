@@ -49,7 +49,7 @@ const TodoList = () => {
 
   return (
     <div>
-      <h2>Adicionar tarefas</h2>
+      <h2>Ebytr Programação do dia</h2>
       <TodoForm onSubmit={ addTask } setShowFilter={setShowFilter}/>
       
       { showFilter ? (
