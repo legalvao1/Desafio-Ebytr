@@ -202,7 +202,7 @@ describe('Deleta uma tarefa do banco', () => {
       expect(response).to.be.a('object');
     });
 
-    it('tal objeto possui o "id" do novo filme inserido', async () => {
+    it('tal objeto possui o "deletedCount" com o valor 1', async () => {
       await todosModel.addTodo(payload_todo);
       const response = await todosModel.deleteTodo(example_id);
 
