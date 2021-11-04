@@ -1,3 +1,4 @@
+/** SOURCE https://www.youtube.com/watch?v=E1E08i2UJGI */
 import React, { useState, useEffect } from "react";
 import { getTodos, addTodo, editTodo, deleteTodo } from "../services/todosService";
 import Todo from "./Todo";
@@ -6,6 +7,7 @@ import TodoForm from "./TodoForm";
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
 
+  /** SOURCE https://medium.com/@felippenardi/how-to-do-componentdidmount-with-react-hooks-553ba39d1571 */
   useEffect(() => {
     async function fetchApi() {
       const { data } = await getTodos();
