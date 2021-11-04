@@ -78,3 +78,41 @@ describe('Busca todas as tarefas no banco', () => {
   });
 });
 
+describe('Cadastra um novo todo no banco', () => {
+
+  const DBServer = new MongoMemoryServer();
+
+  before(async () => {
+    const URLMock = await DBServer.getUri();
+    const connectionMock = await MongoClient
+      .connect(URLMock, { useNewUrlParser: true, useUnifiedTopology: true })
+      .then((connection) => connection.db('banco_teste'));
+
+    sinon.stub(mongoConnection, 'connection').resolves(connectionMock);
+  });
+
+  after(async () => {
+    mongoConnection.connection.restore();
+    await DBServer.stop();
+  });
+
+  describe('quando é inserido com sucesso', () => {
+    const payload_todo = {
+      id: 455,
+      text: "pular",
+      createdAt: "11/4/2021, 4:30:37 PM",
+      status: "Em andamento"
+    };
+
+    it('retorna um objeto', async () => {
+      const response = await todosModel.addTodo(payload_todo);
+
+      expect(response).to.be.a('object');
+    });
+    it('tal objeto possui o "id" do novo filme inserido', async () => {
+      const response = await todosModel.addTodo(payload_todo);
+
+      expect(response).to.have.a.property('taskId');
+    });
+  });
+});

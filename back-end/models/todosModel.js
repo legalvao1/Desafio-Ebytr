@@ -6,16 +6,16 @@ const getTodos = async () => {
   return todosCollection;
 };
 
-const addTodo = async (todo) => {
+const addTodo = async ({ id, text, createdAt, status }) => {
   const db = await mongoConnection.connection();
-  const { _id } = await db.collection('todos').insertOne(todo);
-  return {_id, todo };
+  const { _id } = await db.collection('todos').insertOne({ id, text, createdAt, status });
+  return {_id, taskId: id, text, createdAt, status };
 };
 
-const editTodo = async ({ id }, todo) => {
+const editTodo = async (task, { id, text, createdAt, status }) => {
   const db = await mongoConnection.connection();
   const editTodo = await db.collection('todos').updateOne(
-    { id: parseInt(id) }, { $set: todo },
+    { id: parseInt(task.id) }, { $set: { taskId: id, text, createdAt, status }},
     );
   return editTodo;
 };
