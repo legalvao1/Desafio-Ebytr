@@ -13,17 +13,17 @@ const addTodo = async (todo) => {
   return {_id, todo };
 };
 
-const editTodo = async (id, todo) => {
+const editTodo = async ({ id }, todo) => {
   const db = await connection();
   const editTodo = await db.collection('todos').updateOne(
-    { _id: ObjectId(id) }, { $set: todo },
+    { id: parseInt(id) }, { $set: todo },
     );
   return editTodo;
 };
 
-const deleteTodo = async (id) => {
+const deleteTodo = async ({ id }) => {
   const db = await connection();
-  const deleteTodo = await db.collection('todos').deleteOne({ _id: ObjectId(id) });
+  const deleteTodo = await db.collection('todos').deleteOne({ id: parseInt(id) });
   return deleteTodo;
 };
 
