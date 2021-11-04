@@ -1,19 +1,19 @@
-const connection = require("./connection");
+const mongoConnection = require("./connection");
 
 const getTodos = async () => {
-  const db = await connection();
+  const db = await mongoConnection.connection();
   const todosCollection = await db.collection('todos').find().toArray();
   return todosCollection;
 };
 
 const addTodo = async (todo) => {
-  const db = await connection();
+  const db = await mongoConnection.connection();
   const { _id } = await db.collection('todos').insertOne(todo);
   return {_id, todo };
 };
 
 const editTodo = async ({ id }, todo) => {
-  const db = await connection();
+  const db = await mongoConnection.connection();
   const editTodo = await db.collection('todos').updateOne(
     { id: parseInt(id) }, { $set: todo },
     );
@@ -21,7 +21,7 @@ const editTodo = async ({ id }, todo) => {
 };
 
 const deleteTodo = async ({ id }) => {
-  const db = await connection();
+  const db = await mongoConnection.connection();
   const deleteTodo = await db.collection('todos').deleteOne({ id: parseInt(id) });
   return deleteTodo;
 };

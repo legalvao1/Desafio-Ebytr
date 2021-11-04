@@ -16,4 +16,4 @@ const connection = async () =>
       db = conn.db('ebytr');
       return db;
       });
-module.exports = connection;
+module.exports = { connection };
