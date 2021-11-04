@@ -92,3 +92,58 @@ describe('Ao chamar o controller de getTodos', () => {
     });
   });
 });
+
+
+describe('Ao chamar o controller de addTodos', () => {
+  describe('cadastra uma tarefa no banco', async () => {
+    const response = {};
+    const request = {};
+
+    const example_payload = {
+      _id: '604cb554311d68f491ba5781',
+      taskId: 455,
+      text: "correr",
+      createdAt: "11/4/2021, 4:30:37 PM",
+      status: "pendente"
+    }
+
+    before(() => {
+      request.body = {
+        id: 455,
+        text: "correr",
+        createdAt: "11/4/2021, 4:30:37 PM",
+        status: "pendente"
+      };
+
+      response.status = sinon.stub()
+        .returns(response);
+      response.json = sinon.stub()
+        .returns();
+
+      sinon.stub(todosModel, 'addTodo').resolves(example_payload);
+    })
+
+    after(() => {
+      todosModel.addTodo.restore();
+    })
+
+    it('é chamado o método "status" passando o código 201', async () => {
+      await todosController.addTodo(request, response);
+  
+      expect(response.status.calledWith(201)).to.be.equal(true);
+    });
+
+    it('é chamado o método "json" passando um object', async () => {
+      await todosController.addTodo(request, response);
+
+      expect(response.json.calledWith(sinon.match.object)).to.be.equal(true);
+    });
+
+    it('é chamado com o valor do example_payload', async () => {
+      await todosController.addTodo(request, response);
+      console.log(response.json);
+
+      expect(response.json.calledWith(example_payload)).to.be.equal(true);
+    });
+  });
+});
