@@ -6,6 +6,8 @@ import TodoForm from "./TodoForm";
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
+  const [filter, setFilter] = useState('');
+  const [showFilter, setShowFilter] = useState(true);
 
   /** SOURCE https://medium.com/@felippenardi/how-to-do-componentdidmount-with-react-hooks-553ba39d1571 */
   useEffect(() => {
@@ -40,15 +42,30 @@ const TodoList = () => {
     await deleteTodo(id);
   };
 
+  /**https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare */
+  if (filter !== '') {
+    todos.sort((a, b) => a[filter].localeCompare(b[filter]));
+  };
 
   return (
     <div>
       <h2>Adicionar tarefas</h2>
-      <TodoForm onSubmit={ addTask }/>
+      <TodoForm onSubmit={ addTask } setShowFilter={setShowFilter}/>
+      
+      { showFilter ? (
+      <select className='todo-input' name="filter" id="" onChange={(event) => setFilter(event.target.value)}>
+        <option className='options' value="text">Ordem alfabética</option>
+        <option className='options' value="createdAt">Data de criação</option>
+        <option className='options' value="status">Status</option>
+      </select>
+      ) : null
+      }
       <Todo 
       todos={todos} 
       deleteTodo={deleteTask}
       editTodo={editTask}
+      filter={filter}
+      setShowFilter={setShowFilter}
       />
     </div>
   );
