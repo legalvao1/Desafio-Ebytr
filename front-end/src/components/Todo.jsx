@@ -18,14 +18,14 @@ const Todo = ({ todos, deleteTodo, editTodo }) => {
 
   return todos.map((todo) => (
     <div key={todo.id}>
-      <div key={todo.id}>{todo.text}</div>
+      <div key={todo.id}>{todo.text}<span>{todo.status}</span></div>
       <RiCloseCircleLine
         onClick={() => deleteTodo(todo.id)}
         className='delete-icon'
       />
       <TiEdit 
         onClick={() => setEdit({ 
-          id: todo.id, value: todo.text, createdAt: todo.createdAt 
+          id: todo.id, value: todo.text, createdAt: todo.createdAt, status: todo.status
         })}
         className='edit-icon'
       />

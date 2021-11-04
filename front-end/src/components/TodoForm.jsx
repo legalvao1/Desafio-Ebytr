@@ -6,6 +6,8 @@ const TodoForm = (props) => {
     props.edit ? props.edit.value : ''
   );
 
+  const [status, setStatus] = useState('Em andamento')
+
   const inputRef = useRef(null);
 
   useEffect(() => inputRef.current.focus());
@@ -24,12 +26,14 @@ const TodoForm = (props) => {
       text: input,
       createdAt: props.edit.createdAt,
       updateAt: new Date().toLocaleString('en-US'),
+      status: status,
     })
     :
     props.onSubmit({
       id: Math.floor(Math.random() * 10000),
       text: input,
       createdAt: new Date().toLocaleString('en-US'),
+      status: status,
     });
 
     setInput('')
@@ -45,6 +49,12 @@ const TodoForm = (props) => {
         className={props.edit ? 'todo-input edit' : 'todo-input'}
         ref={inputRef}
       />
+      <select className='todo-input' onChange={(event) => setStatus(event.target.value)}>
+        <option className='options' value="Em Andamento" defaultValue >Em Andamento</option>
+        <option className='options' value="Pendente">Pendente</option>
+        <option className='options' value="Pronto">Pronto</option>
+      </select>
+
       <button onClick={handleSubmit} className={props.edit ? 'todo-button edit' : 'todo-button'}>
       {props.edit ? 'Editar' : 'Adicionar'}
       </button>
