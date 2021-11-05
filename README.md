@@ -22,7 +22,7 @@
 <img src="/images/tela-tarefas.png" alt="tarefas"/>
 <img src="/images/tela-editar.png" alt="editar"/>
 
-Para iniciar o desenvolvimento, é necessário clonar o repositório do GitHub, acessar o projeto Digital Republic e intalar as dependências:
+Para iniciar o desenvolvimento, é necessário clonar o repositório do GitHub, acessar o projeto Ebytr e instalar as dependências:
 ```shell
 cd "diretorio de sua preferencia"
 
