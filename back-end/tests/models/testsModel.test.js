@@ -137,7 +137,7 @@ describe('Edita uma tarefa no banco', () => {
 
   describe('quando é editada com sucesso', () => {
     const payload_todo = {
-      id: 455,
+      taskId: 455,
       text: "correr",
       createdAt: "11/4/2021, 4:30:37 PM",
       status: "pendente"
@@ -146,7 +146,7 @@ describe('Edita uma tarefa no banco', () => {
     const example_id = { id: 455 };
 
     const edited_payload = {
-      id: 455,
+      taskId: 455,
       text: "pular",
       createdAt: "11/4/2021, 4:30:37 PM",
       updatedAt: "11/4/2021, 5:54:40 PM",
@@ -187,7 +187,7 @@ describe('Deleta uma tarefa do banco', () => {
 
   describe('quando é deletada com sucesso', () => {
     const payload_todo = {
-      id: 455,
+      taskId: 455,
       text: "correr",
       createdAt: "11/4/2021, 4:30:37 PM",
       status: "pendente"
