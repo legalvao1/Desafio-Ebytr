@@ -18,8 +18,13 @@
 -   Mongodb
 
 ## Preview  🎥
+### Tela principal
 <img src="/images/tela-principal.png" alt="tela principal"/>
+
+### Lista tarefas
 <img src="/images/tela-tarefas.png" alt="tarefas"/>
+
+### Editar uma tarefa
 <img src="/images/tela-editar.png" alt="editar"/>
 
 Para iniciar o desenvolvimento, é necessário clonar o repositório do GitHub, acessar o projeto Ebytr e instalar as dependências:
