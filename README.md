@@ -1,4 +1,4 @@
-# Desafio Digital Republic
+# Desafio Ebytr
 
 -   Desenvolver uma aplicação para auxiliar as pessoas colaboradoras da Ebytr a se organizarem e terem mais produtividade.
 - Foi utilizado arquitetura MSC(Models, Service e Controllers) para desenvolvimento da API em que é possível realizar um CRUD visualizando a lista de tarefas, ordenando-a por ordem alfabética, data de criação ou por status, inserir uma nova tafera na lista, editar e remover e por fim salvando no banco de dados.
