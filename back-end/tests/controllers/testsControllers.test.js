@@ -141,9 +141,101 @@ describe('Ao chamar o controller de addTodos', () => {
 
     it('é chamado com o valor do example_payload', async () => {
       await todosController.addTodo(request, response);
-      console.log(response.json);
 
       expect(response.json.calledWith(example_payload)).to.be.equal(true);
+    });
+  });
+});
+
+describe('Ao chamar o controller de editTodos', () => {
+  describe('Edita uma tarefa no banco', async () => {
+    const response = {};
+    const request = {};
+
+    const example_payload = {
+      _id: '604cb554311d68f491ba5781',
+      taskId: 455,
+      text: "correr",
+      createdAt: "11/4/2021, 4:30:37 PM",
+      updatedAt: "11/04/2021, 22:57:40 PM",
+      status: "pendente"
+    }
+
+    before(() => {
+      request.params = { id: 455 };
+      request.body = {
+        id: 455,
+        text: "pular",
+        createdAt: "11/4/2021, 4:30:37 PM",
+        updatedAt: "11/04/2021, 22:57:40 PM",
+        status: "pronto"
+      };
+
+      response.status = sinon.stub()
+        .returns(response);
+      response.json = sinon.stub()
+        .returns();
+
+      sinon.stub(todosModel, 'editTodo').resolves(example_payload);
+    })
+
+    after(() => {
+      todosModel.editTodo.restore();
+    })
+
+    it('é chamado o método "status" passando o código 200', async () => {
+      await todosController.editTodo(request, response);
+  
+      expect(response.status.calledWith(200)).to.be.equal(true);
+    });
+
+    it('é chamado o método "json" passando um object', async () => {
+      await todosController.editTodo(request, response);
+
+      expect(response.json.calledWith(sinon.match.object)).to.be.equal(true);
+    });
+
+    it('é chamado com o valor do example_payload', async () => {
+      await todosController.editTodo(request, response);
+
+      expect(response.json.calledWith(example_payload)).to.be.equal(true);
+    });
+  });
+});
+
+describe('Ao chamar o controller de deleteTodos', () => {
+  describe('deleta uma tarefa do banco', async () => {
+    const response = {};
+    const request = {};
+
+    const example_payload = { acknowledged: true, deletedCount: 1 }
+
+    before(() => {
+      request.params = { id: 455 };
+      request.body = {};
+
+      response.status = sinon.stub()
+        .returns(response);
+      response.json = sinon.stub()
+        .returns();
+
+      sinon.stub(todosModel, 'deleteTodo').resolves(example_payload);
+    })
+
+    after(() => {
+      todosModel.deleteTodo.restore();
+    })
+
+    it('é chamado o método "status" passando o código 200', async () => {
+      await todosController.deleteTodo(request, response);
+  
+      expect(response.status.calledWith(200)).to.be.equal(true);
+    });
+
+    it('é chamado o método "json" passando um object', async () => {
+      await todosController.deleteTodo(request, response);
+
+      expect(response.json.calledWith(sinon.match.object)).to.be.equal(true);
     });
   });
 });
