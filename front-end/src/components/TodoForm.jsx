@@ -22,7 +22,7 @@ const TodoForm = (props) => {
     props.edit ? 
 
     props.onSubmit({
-      id: props.edit.id,
+      taskId: props.edit.taskId,
       text: input,
       createdAt: props.edit.createdAt,
       updateAt: new Date().toLocaleString('en-US'),
@@ -30,7 +30,7 @@ const TodoForm = (props) => {
     })
     :
     props.onSubmit({
-      id: Math.floor(Math.random() * 10000),
+      taskId: Math.floor(Math.random() * 10000),
       text: input,
       createdAt: new Date().toLocaleString('en-US'),
       status: status,

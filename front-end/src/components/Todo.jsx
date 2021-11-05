@@ -5,23 +5,23 @@ import { TiEdit } from 'react-icons/ti';
 import TodoForm from "./TodoForm";
 
 const Todo = ({ todos, deleteTodo, editTodo, setShowFilter }) => {
-  const [edit, setEdit] = useState({ id: null, value: '', showFilter: true });
+  const [edit, setEdit] = useState({ taskId: null, value: '', showFilter: true });
 
   setShowFilter(edit.showFilter);
 
   const submitUpdate = (value) => {
-    editTodo(edit.id, value);
-    setEdit({ id: null, value: '' });
+    editTodo(edit.taskId, value);
+    setEdit({ taskId: null, value: '' });
   };
 
-  if (edit.id) {
+  if (edit.taskId) {
     return <TodoForm edit={edit} onSubmit={submitUpdate} />;
   };
 
   setShowFilter(true);
   return todos.map((todo) => (
-    <div className="todo-row" key={todo.id}>
-      <div key={todo.id}>
+    <div className="todo-row" key={todo.taskId}>
+      <div key={todo.taskId}>
         {todo.text}
         <div className="status-div">
           <span className="status">{todo.status}</span>
@@ -29,12 +29,12 @@ const Todo = ({ todos, deleteTodo, editTodo, setShowFilter }) => {
       </div>
       <div className='icons'>
         <RiCloseCircleLine
-          onClick={() => deleteTodo(todo.id)}
+          onClick={() => deleteTodo(todo.taskId)}
           className='delete-icon'
         />
         <TiEdit 
           onClick={() => setEdit({ 
-            id: todo.id, value: todo.text, createdAt: todo.createdAt, status: todo.status, showFilter: false
+            taskId: todo.taskId, value: todo.text, createdAt: todo.createdAt, status: todo.status, showFilter: false
           })}
           className='edit-icon'
         />

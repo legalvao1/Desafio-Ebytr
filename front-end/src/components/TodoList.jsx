@@ -31,13 +31,13 @@ const TodoList = () => {
     if (newValue.text === '' || /^\s*$/.test(newValue.text)) {
       return;
     };
-    const newTodos = todos.map((todo) => todo.id === id ? newValue : todo);
+    const newTodos = todos.map((todo) => todo.taskId === id ? newValue : todo);
     setTodos(newTodos);
     await editTodo(id, newValue);
   }
 
   const deleteTask = async (id) => {
-    const newTodos = todos.filter((todo) => todo.id !== id)
+    const newTodos = todos.filter((todo) => todo.taskId !== id);
     setTodos(newTodos);
     await deleteTodo(id);
   };
